@@ -23,5 +23,5 @@
     "noUncheckedSideEffectImports": true,
     "jsx": "react-jsx"
   },
-  "include": ["vite.config.ts", "src/server/**/*.tsx", "src/server/**/*.ts"]
+  "include": ["vite.config.ts", "src/server/**/*.tsx", "src/server/**/*.ts", "api/**/*.ts"]
 }

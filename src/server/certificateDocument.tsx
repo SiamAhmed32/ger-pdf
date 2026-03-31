@@ -1,9 +1,9 @@
+import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { chromium } from 'playwright';
 import CertificateRenderer from '../components/CertificateRenderer';
 import type { RlpCertificateData } from '../lib/types';
 
-function reviveCertificateData(raw: RlpCertificateData): RlpCertificateData {
+export function reviveCertificateData(raw: RlpCertificateData): RlpCertificateData {
   return {
     ...raw,
     schoolYearFrom: new Date(raw.schoolYearFrom),
@@ -12,7 +12,7 @@ function reviveCertificateData(raw: RlpCertificateData): RlpCertificateData {
   };
 }
 
-function renderCertificateHtml(data: RlpCertificateData, origin: string): string {
+export function renderCertificateHtml(data: RlpCertificateData, origin: string): string {
   const markup = renderToStaticMarkup(<CertificateRenderer data={data} />);
   const withAbsoluteLogo = markup.replaceAll(
     'src="/Certificate_logo.png"',
@@ -60,46 +60,4 @@ function renderCertificateHtml(data: RlpCertificateData, origin: string): string
     ${withAbsoluteLogo}
   </body>
 </html>`;
-}
-
-export async function generateCertificatePdfBuffer(
-  rawData: RlpCertificateData,
-  origin: string,
-): Promise<Buffer> {
-  const data = reviveCertificateData(rawData);
-  const browser = await chromium.launch({ headless: true });
-
-  try {
-    const page = await browser.newPage({
-      viewport: {
-        width: 794,
-        height: 1123,
-      },
-      deviceScaleFactor: 2,
-    });
-
-    await page.setContent(renderCertificateHtml(data, origin), {
-      waitUntil: 'load',
-    });
-
-    await page.waitForFunction(() =>
-      Array.from(document.images).every((img) => (img as any).complete),
-    );
-
-    const pdf = await page.pdf({
-      format: 'A4',
-      printBackground: true,
-      margin: {
-        top: '0',
-        right: '0',
-        bottom: '0',
-        left: '0',
-      },
-      preferCSSPageSize: true,
-    });
-
-    return Buffer.from(pdf);
-  } finally {
-    await browser.close();
-  }
 }
