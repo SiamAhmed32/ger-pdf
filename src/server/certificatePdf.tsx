@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { chromium } from 'playwright';
 import CertificateRenderer from '../components/CertificateRenderer';
@@ -84,7 +83,7 @@ export async function generateCertificatePdfBuffer(
     });
 
     await page.waitForFunction(() =>
-      Array.from(document.images).every((img) => img.complete),
+      Array.from(document.images).every((img) => (img as any).complete),
     );
 
     const pdf = await page.pdf({
