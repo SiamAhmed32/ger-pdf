@@ -1,5 +1,6 @@
 import React from 'react';
 import type { RlpCertificateData } from '../lib/types';
+import A4Page from './A4Page';
 import FirstPage from './FirstPage';
 import LastPage from './LastPage';
 
@@ -7,32 +8,26 @@ interface CertificateRendererProps {
   data: RlpCertificateData;
 }
 
-const CertificateRenderer: React.FC<CertificateRendererProps> = ({ data }) => {
+const CertificateRenderer = React.forwardRef<HTMLDivElement, CertificateRendererProps>(
+  ({ data }, ref) => {
   return (
     <div
-      style={{
-        width: '210mm',
-        margin: '0 auto',
-        padding: '20mm 15mm',
-        backgroundColor: '#fff',
-        boxShadow: '0 0 20px rgba(0,0,0,0.15)',
-        fontFamily: 'Arial, sans-serif',
-      }}
+      ref={ref}
+      className="certificate-print-root"
+      style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
     >
-      {/* Page 1 */}
-      <div style={{ pageBreakAfter: 'always' }}>
+      <A4Page breakAfter>
         <FirstPage data={data} />
-      </div>
+      </A4Page>
 
-      {/* Page break spacing */}
-      <div style={{ height: '60px' }} />
-
-      {/* Page 2 */}
-      <div>
+      <A4Page>
         <LastPage data={data} />
-      </div>
+      </A4Page>
     </div>
   );
-};
+  },
+);
+
+CertificateRenderer.displayName = 'CertificateRenderer';
 
 export default CertificateRenderer;

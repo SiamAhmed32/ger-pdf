@@ -1,12 +1,48 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CertificateRenderer from '../components/CertificateRenderer';
 import { generateRandomCertificateData } from '../lib/randomData';
 
 const CertificatePage: React.FC = () => {
   const navigate = useNavigate();
+  const certificateRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
   // Generate fresh random data on every visit to this route
   const data = useMemo(() => generateRandomCertificateData(), []);
+
+  const handleDownloadPdf = async () => {
+    setIsDownloading(true);
+
+    try {
+      const response = await fetch('/api/certificate-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate PDF');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+
+      anchor.href = url;
+      anchor.download = 'certificate.pdf';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      window.alert('Failed to download PDF. Please try again.');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   return (
     <div style={{ backgroundColor: '#e5e7eb', minHeight: '100vh', padding: '24px 0' }}>
@@ -35,6 +71,22 @@ const CertificatePage: React.FC = () => {
           ← Zurück
         </button>
         <button
+          onClick={handleDownloadPdf}
+          disabled={isDownloading}
+          style={{
+            backgroundColor: isDownloading ? '#93c5fd' : '#111827',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '8px 18px',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            cursor: isDownloading ? 'wait' : 'pointer',
+          }}
+        >
+          {isDownloading ? 'Downloading...' : 'Download PDF'}
+        </button>
+        <button
           onClick={() => {
             // Navigate to the same route but force remount by using a key trick via navigate
             navigate('/certificate', { replace: true, state: { ts: Date.now() } });
@@ -55,7 +107,7 @@ const CertificatePage: React.FC = () => {
         </button>
       </div>
 
-      <CertificateRenderer data={data} />
+      <CertificateRenderer ref={certificateRef} data={data} />
     </div>
   );
 };

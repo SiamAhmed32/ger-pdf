@@ -118,7 +118,7 @@ export function generateRandomCertificateData(): RlpCertificateData {
       name: 'Lernwerkstatt-Pflege GmbH',
       street: 'Liebigstraße 14-16',
       postalCode: '35390',
-      city: 'Gießen',
+      city: 'Giessen',
       principalName: 'Stephan Ronneburg',
       principalTitle: 'Schulleitung',
     },

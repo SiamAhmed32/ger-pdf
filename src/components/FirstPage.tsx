@@ -75,38 +75,60 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
 
   const labelStyle: React.CSSProperties = {
     ...addFont,
+    fontSize: '12px',
     fontWeight: 400,
     color: '#000',
     textAlign: 'right',
-    width: '112px',
+    width: '86px',
+    lineHeight: '1.05',
   };
 
   const valueStyle: React.CSSProperties = {
     display: 'inline-block',
     borderBottom: '0.5pt solid #000',
-    paddingBottom: '2px',
+    paddingBottom: '1px',
+    paddingRight: '8px',
     fontSize: '13px',
     fontWeight: 500,
     color: '#000',
     lineHeight: '1.1',
+    textAlign: 'left',
+    boxSizing: 'border-box',
+  };
+
+  const traineeInfoGridStyle: React.CSSProperties = {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: '86px auto',
+    columnGap: '10px',
+    rowGap: '4px',
+    alignItems: 'baseline',
+  };
+
+  const topIntroBlockStyle: React.CSSProperties = {
+    width: '344px',
+    margin: '0 auto',
   };
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', color: '#000' }}>
-      {/* Header */}
+      {/* Header - Pixel Perfect Symmetric Composition */}
       <section
         style={{
           backgroundColor: '#e5e7eb',
           height: '96px',
-          marginBottom: '56px',
-          padding: '0 30px',
+          marginBottom: '16px',
+          padding: '0 10px 0 32px', // Tightened right margin for logo, balanced left
           display: 'grid',
-          gridTemplateColumns: '144px 1fr 144px',
+          gridTemplateColumns: '150px 1fr 150px', // Symmetric outer columns for dead-centering
           alignItems: 'center',
           boxSizing: 'border-box',
         }}
       >
+        {/* Left spacer for grid symmetry */}
         <div />
+
+        {/* School info centered block */}
         <div
           style={{
             display: 'flex',
@@ -116,18 +138,20 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
             lineHeight: '1.2',
           }}
         >
-          <p style={{ margin: 0, fontWeight: 'bold', fontSize: '14.5px', lineHeight: '1.25' }}>
+          <p style={{ margin: 0, fontWeight: 'bold', fontSize: '15px', lineHeight: '1.3' }}>
             {schoolName}
           </p>
-          <p style={{ margin: 0, fontSize: '12px' }}>{school.street || 'Liebigstraße 14-16'}</p>
-          <p style={{ margin: '2px 0 0', fontSize: '12px', lineHeight: '1.2' }}>
+          <p style={{ margin: 0, fontSize: '12.5px' }}>{school.street || 'Liebigstraße 14-16'}</p>
+          <p style={{ margin: '1px 0 0', fontSize: '12.5px' }}>
             {school.postalCode || '35390'} {school.city || 'Giessen'}
           </p>
         </div>
+
+        {/* Logo anchored tight to the right margin (matches Pic 2) */}
         <img
           style={{
-            width: '132px',
-            height: '56px',
+            width: '138px',
+            height: '64px', // Larger for vertical presence
             justifySelf: 'end',
             objectFit: 'contain',
           }}
@@ -136,80 +160,42 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
         />
       </section>
 
-      {/* Title */}
-      <div
-        style={{
-          fontSize: '24px',
-          fontWeight: 'bold',
-          letterSpacing: '0.15em',
-          marginBottom: '30px',
-          textAlign: 'center',
-        }}
-      >
-        {CERTIFICATE_TYPE_LABELS[certificateType].toUpperCase()}
-      </div>
-
       {/* Trainee Info */}
       <section style={{ marginBottom: '13px' }}>
-        {/* Name */}
-        <div style={{ display: 'grid', gridTemplateColumns: '25% 75%' }}>
-          <div />
-          <div style={{ display: 'flex', fontSize: '13px', alignItems: 'baseline' }}>
-            <span style={labelStyle}>
-              Vor-/ Zuname
-            </span>
-            <div style={{ flex: 1, marginLeft: '16px' }}>
-              <span style={valueStyle}>
-                {traineeName || ''}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Birthday */}
-        <div
-          style={{ display: 'grid', marginTop: '-5px', gridTemplateColumns: '25% 75%' }}
-        >
-          <div />
+        <div style={topIntroBlockStyle}>
           <div
             style={{
-              display: 'flex',
-              fontSize: '13px',
-              width: '384px',
-              alignItems: 'baseline',
+              width: 'fit-content',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              letterSpacing: '0.025em',
+              lineHeight: '1',
+              textAlign: 'left',
+              color: '#000',
+              marginBottom: '32px',
+              marginLeft: '80px',
             }}
           >
-            <span style={labelStyle}>
-              Geburtstag
+            {CERTIFICATE_TYPE_LABELS[certificateType].toUpperCase()}
+          </div>
+
+          <div style={{ ...traineeInfoGridStyle, marginLeft: '80px' }}>
+            <span style={labelStyle}>Vor-/ Zuname</span>
+            <span style={{ ...valueStyle, width: '128px' }}>{traineeName || ''}</span>
+
+            <span style={labelStyle}>Geburtstag</span>
+            <span style={{ ...valueStyle, width: '114px' }}>
+              {trainee.dateOfBirth
+                ? format(new Date(trainee.dateOfBirth), 'yyyy-MM-dd', { locale: de })
+                : ''}
             </span>
-            <div style={{ flex: 1, marginLeft: '16px' }}>
-              <span style={valueStyle}>
-                {trainee.dateOfBirth
-                  ? format(new Date(trainee.dateOfBirth), 'dd.MM.yyyy', { locale: de })
-                  : ''}
-              </span>
-            </div>
+
+            <span style={labelStyle}>Anschrift</span>
+            <span style={{ ...valueStyle, width: '248px' }}>{traineeAddress || ''}</span>
           </div>
         </div>
 
-        {/* Address */}
-        <div
-          style={{ display: 'grid', marginTop: '-5px', gridTemplateColumns: '25% 75%' }}
-        >
-          <div />
-          <div style={{ display: 'flex', fontSize: '13px', alignItems: 'baseline' }}>
-            <span style={labelStyle}>
-              Anschrift
-            </span>
-            <div style={{ flex: 1, marginLeft: '16px' }}>
-              <span style={valueStyle}>
-                {traineeAddress || ''}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <p style={{ fontSize: '13px', lineHeight: '1.625', marginTop: '30px' }}>
+        <p style={{ fontSize: '13px', lineHeight: '1.625', marginTop: '22px', textAlign: 'left' }}>
           Hat im Schuljahr{' '}
           <span style={{ fontWeight: 'bold' }}>
             {schoolYearFrom && schoolYearTo
@@ -218,7 +204,7 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
           </span>{' '}
           das {trainingYear}. Ausbildungsjahr an der o.a. Pflegeschule besucht.
         </p>
-        <p style={{ fontSize: '13px', lineHeight: '1.625', ...addFont }}>
+        <p style={{ fontSize: '13px', lineHeight: '1.625', textAlign: 'left', ...addFont }}>
           Die Leistungen in den einzelnen Ausbildungsbereichen werden wie folgt beurteilt:
         </p>
       </section>
@@ -230,9 +216,10 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
             fontWeight: 'bold',
             fontSize: '12px',
             textAlign: 'center',
-            padding: '0 0 8px 0',
+            // padding: '0 0',
             backgroundColor: '#DBEAFE',
             margin: 0,
+            marginBottom: '-1px',
           }}
         >
           Theoretischer und praktischer Unterricht
@@ -249,18 +236,20 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
                   fontSize: '13px',
                   width: '41%',
                   textAlign: 'left',
+                  paddingTop: '5px',
+                  paddingBottom: '5px',
                   paddingLeft: '30px',
                 }}
               >
                 Kompetenzbereich
               </th>
-              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingLeft: '5px' }}>
+              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingTop: '5px', paddingBottom: '5px', paddingLeft: '8px' }}>
                 Note
               </th>
-              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingLeft: '5px' }}>
+              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingTop: '5px', paddingBottom: '5px', paddingLeft: '8px' }}>
                 Faktor
               </th>
-              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingLeft: '5px' }}>
+              <th style={{ ...cellStyle, fontSize: '13px', width: '14.3%', textAlign: 'left', paddingTop: '5px', paddingBottom: '5px', paddingLeft: '8px' }}>
                 Ʃ-Wert¹
               </th>
               <th
@@ -270,7 +259,9 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
                   width: '15%',
                   borderRight: '0.5pt solid #000',
                   textAlign: 'left',
-                  paddingLeft: '5px',
+                  paddingTop: '5px',
+                  paddingBottom: '5px',
+                  paddingLeft: '8px',
                 }}
               >
                 Gesamt-Ʃ²
@@ -297,12 +288,12 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
                               borderRight: '0.5pt solid #000',
                               textAlign: 'center',
                               verticalAlign: 'middle',
-                              padding: '1px 0 4px',
+                              padding: '1px 0 0 4px',
                             }}
                           >
                             {kb.num}.
                           </td>
-                          <td style={{ padding: '0px 4px 10px', verticalAlign: 'middle', fontSize: '13px' }}>
+                          <td style={{ padding: '5px 10px  5px 10px', verticalAlign: 'middle', fontSize: '13px' }}>
                             {kb.desc}
                           </td>
                         </tr>
@@ -310,13 +301,37 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
                     </table>
                   </td>
 
-                  <td style={{ ...cellStyle, fontSize: '13px', borderBottom: bottomBorder }}>
+                  <td
+                    style={{
+                      ...cellStyle,
+                      fontSize: '13px',
+                      borderBottom: bottomBorder,
+                      textAlign: 'left',
+                      paddingLeft: '34px',
+                    }}
+                  >
                     {kbData?.grade !== null ? formatGrade(kbData.grade) : ''}
                   </td>
-                  <td style={{ ...cellStyle, fontSize: '13px', borderBottom: bottomBorder }}>
+                  <td
+                    style={{
+                      ...cellStyle,
+                      fontSize: '13px',
+                      borderBottom: bottomBorder,
+                      textAlign: 'left',
+                      paddingLeft: '40px',
+                    }}
+                  >
                     {kbData?.factor !== null ? kbData.factor.toFixed(1) : ''}
                   </td>
-                  <td style={{ ...cellStyle, fontSize: '13px', borderBottom: bottomBorder }}>
+                  <td
+                    style={{
+                      ...cellStyle,
+                      fontSize: '13px',
+                      borderBottom: bottomBorder,
+                      textAlign: 'left',
+                      paddingLeft: '30px',
+                    }}
+                  >
                     {kbData?.weightedValue !== null
                       ? kbData.weightedValue!.toFixed(2)
                       : ''}
@@ -343,11 +358,11 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
           </tbody>
         </table>
 
-        <div style={{ marginTop: '5px', fontSize: '12px' }}>
-          <p style={{ margin: '2px 0' }}>
+        <div style={{ marginTop: '5px', fontSize: '12px', textAlign: 'left' }}>
+          <p style={{ margin: '1px 0 -7px' }}>
             ¹ Note und Faktor müssen multipliziert werden, daraus ergibt sich der Ʃ Wert.
           </p>
-          <p style={{ margin: '2px 0' }}>
+          <p style={{}}>
             ² Alle Ʃ Wert von I-V. müssen addiert werden, daraus ergibt sich die Gesamt-Ʃ.
           </p>
         </div>
@@ -355,17 +370,34 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
 
       {/* Summary Table */}
       <section style={{ marginTop: '16px' }}>
-        <table style={{ width: '55%', marginLeft: '45%', borderCollapse: 'collapse' }}>
+        <table style={{ width: '55%', marginLeft: '45%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <thead style={{ backgroundColor: '#DBEAFE' }}>
             <tr>
-              <th style={{ ...cellStyle, fontSize: '14px', width: '45%' }}>Übertragene Gesamt-Ʃ</th>
               <th
                 style={{
                   ...cellStyle,
                   fontSize: '14px',
-                  width: 'auto',
+                  width: '10.5%',
+                  paddingTop: '4px',
+                  paddingBottom: '4px',
+                  // paddingLeft: '3px',
+                  // paddingRight: '3px',
+                }}
+              >
+                Übertragene
+                <br />
+                Gesamt-Ʃ
+              </th>
+              <th
+                style={{
+                  ...cellStyle,
+                  fontSize: '14px',
+                   width: '6%',
                   whiteSpace: 'nowrap',
-                  paddingRight: '5px',
+                  paddingTop: '4px',
+                  paddingBottom: '4px',
+                  paddingLeft: '2px',
+                  // paddingRight: '2px',
                 }}
               >
                 Division
@@ -375,28 +407,63 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
                   ...cellStyle,
                   fontSize: '14px',
                   borderRight: '0.5pt solid #000',
-                  width: '45%',
+                    width: '14.5%',
+                  paddingTop: '4px',
+                  paddingBottom: '4px',
+                  paddingLeft: '3px',
+                  paddingRight: '3px',
                 }}
               >
-                Gesamtnote für den schulischen Unterricht
+                Gesamtnote für den
+                <br />
+                schulischen
+                <br />
+                Unterricht
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style={{ ...cellStyle, fontSize: '12px', borderBottom: '0.5pt solid #000' }}>
+              <td
+                style={{
+                  ...cellStyle,
+                  fontSize: '12px',
+                  width: '36.5%',
+                  borderBottom: '0.5pt solid #000',
+                  paddingTop: '3px',
+                  paddingBottom: '2.5px',
+                  paddingLeft: '2.5px',
+                  paddingRight: '3px',
+                }}
+              >
                 {theoryGrades.totalWeightedSum?.toFixed(2) || ''}
-              </td>
-              <td style={{ ...cellStyle, fontSize: '13px', borderBottom: '0.5pt solid #000' }}>
-                {theoryGrades.factorSum?.toFixed(1) || ''}
               </td>
               <td
                 style={{
                   ...cellStyle,
                   fontSize: '13px',
-                  fontWeight: 'bold',
+                  width: '21%',
                   borderBottom: '0.5pt solid #000',
+                  paddingTop: '2.5px',
+                  paddingBottom: '2.5px',
+                  paddingLeft: '2px',
+                  paddingRight: '2px',
+                }}
+              >
+                {theoryGrades.factorSum?.toFixed(1) || ''}
+              </td>
+              <td
+                style={{
+                   ...cellStyle,
+                   fontSize: '13px',
+                   fontWeight: 'bold',
+                    width: '42.5%',
+                    borderBottom: '0.5pt solid #000',
+                  paddingTop: '2.5px',
+                  paddingBottom: '2.5px',
                   borderRight: '0.5pt solid #000',
+                  paddingLeft: '3px',
+                  paddingRight: '3px',
                 }}
               >
                 {theoryGrades.overallGrade !== null ? formatGrade(theoryGrades.overallGrade) : ''}
@@ -407,7 +474,7 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
       </section>
 
       <footer style={{ marginTop: '50px' }}>
-        <p style={{ fontSize: '11px', ...addFont, textAlign: 'left' }}>
+        <p style={{ fontSize: '11px', ...addFont, textAlign: 'left', marginLeft: '20px' }}>
           * Bei den Kompetenzbereichen und Einsatzbereichen, die in diesem Jahr nicht unterrichtet
           bzw. absolviert wurden, stehen keine Noten.
         </p>
