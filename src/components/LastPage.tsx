@@ -775,7 +775,6 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
                 fontSize: "17px",
                 fontWeight: "bold",
                 textAlign: "left",
-                // marginBottom: "2px",
                 ...addFont,
               }}
             >
@@ -784,8 +783,6 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
               <div
                 style={{
                   borderBottom: "1px solid #333",
-                  // height: "10px",
-                  // marginBottom: "3px",
                 }}
               />
             <div
