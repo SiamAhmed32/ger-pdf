@@ -1,8 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import chromium from '@sparticuz/chromium';
 import { chromium as playwright } from 'playwright-core';
-import type { RlpCertificateData } from '../src/lib/types';
-import { renderCertificateHtml, reviveCertificateData } from '../src/server/certificateDocument';
+import type { RlpCertificateData } from '../src/lib/types.js';
+import {
+  renderCertificateHtml,
+  reviveCertificateData,
+} from '../src/server/certificateDocument.js';
 
 export const config = {
   maxDuration: 60,
