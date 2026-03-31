@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CertificateRenderer from '../components/CertificateRenderer';
+import { downloadCertificatePdf } from '../lib/downloadCertificatePdf';
 import { generateRandomCertificateData } from '../lib/randomData';
 
 const CertificatePage: React.FC = () => {
@@ -11,31 +12,15 @@ const CertificatePage: React.FC = () => {
   const data = useMemo(() => generateRandomCertificateData(), []);
 
   const handleDownloadPdf = async () => {
+    if (!certificateRef.current) {
+      window.alert('Certificate is not ready yet. Please try again.');
+      return;
+    }
+
     setIsDownloading(true);
 
     try {
-      const response = await fetch('/api/certificate-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate PDF');
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-
-      anchor.href = url;
-      anchor.download = 'certificate.pdf';
-      document.body.appendChild(anchor);
-      anchor.click();
-      document.body.removeChild(anchor);
-      window.URL.revokeObjectURL(url);
+      await downloadCertificatePdf(certificateRef.current);
     } catch (error) {
       console.error(error);
       window.alert('Failed to download PDF. Please try again.');
