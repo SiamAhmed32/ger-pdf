@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 import type { RlpCertificateData } from '../lib/types';
 import { CERTIFICATE_TYPE_LABELS, formatGrade } from '../lib/types';
+import SectionTitleBar from './SectionTitleBar';
 
 interface FirstPageProps {
   data: RlpCertificateData;
@@ -211,19 +212,7 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
 
       {/* Theory Table */}
       <section>
-        <p
-          style={{
-            fontWeight: 'bold',
-            fontSize: '12px',
-            textAlign: 'center',
-            // padding: '0 0',
-            backgroundColor: '#DBEAFE',
-            margin: 0,
-            marginBottom: '-1px',
-          }}
-        >
-          Theoretischer und praktischer Unterricht
-        </p>
+        <SectionTitleBar title="Theoretischer und praktischer Unterricht" />
 
         <table
           style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}

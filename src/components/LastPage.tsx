@@ -3,6 +3,8 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import type { RlpCertificateData } from "../lib/types";
 import { formatPracticeGrade } from "../lib/types";
+import LineBrokenText from "./LineBrokenText";
+import SectionTitleBar from "./SectionTitleBar";
 
 interface LastPageProps {
   data: RlpCertificateData;
@@ -58,18 +60,7 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
       }}
     >
       <section style={{ color: "#000" }}>
-        <p
-          style={{
-            fontWeight: "bold",
-            fontSize: "12px",
-            textAlign: "center",
-            backgroundColor: "#DBEAFE",
-            margin: 0,
-            marginBottom: "-1px",
-          }}
-        >
-          Praktische Ausbildung*
-        </p>
+        <SectionTitleBar title="Praktische Ausbildung*" />
 
         <table
           style={{
@@ -625,9 +616,9 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
                   ...addFont,
                 }}
               >
-                Theoretischer und praktischer
-                <br />
-                Unterricht
+                <LineBrokenText
+                  lines={["Theoretischer und praktischer", "Unterricht"]}
+                />
               </td>
               <td
                 style={{
