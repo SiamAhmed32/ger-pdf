@@ -143,7 +143,7 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
           </p>
           <p style={{ margin: 0, fontSize: '12.5px' }}>{school.street || 'Liebigstraße 14-16'}</p>
           <p style={{ margin: '1px 0 0', fontSize: '12.5px' }}>
-            {school.postalCode || '35390'} {school.city || 'Giessen'}
+            {school.postalCode || '35390'} {school.city || 'Gießen'}
           </p>
         </div>
 
@@ -179,7 +179,7 @@ const FirstPage: React.FC<FirstPageProps> = ({ data }) => {
             {CERTIFICATE_TYPE_LABELS[certificateType].toUpperCase()}
           </div>
 
-          <div style={{ ...traineeInfoGridStyle, marginLeft: '80px' }}>
+          <div style={{ ...traineeInfoGridStyle, marginLeft: '65px' }}>
             <span style={labelStyle}>Vor-/ Zuname</span>
             <span style={{ ...valueStyle, width: '128px' }}>{traineeName || ''}</span>
 

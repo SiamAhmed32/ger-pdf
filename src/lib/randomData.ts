@@ -1,4 +1,4 @@
-import type { RlpCertificateData, TheoryGradeResult, PracticeGradeResult } from './types';
+﻿import type { RlpCertificateData, TheoryGradeResult, PracticeGradeResult } from './types';
 import { KB_FACTORS, roundToTwo } from './types';
 
 const FIRST_NAMES = [
@@ -9,16 +9,16 @@ const FIRST_NAMES = [
 ];
 
 const LAST_NAMES = [
-  'Müller', 'Schmidt', 'Schneider', 'Fischer', 'Weber',
+  'MÃ¼ller', 'Schmidt', 'Schneider', 'Fischer', 'Weber',
   'Meyer', 'Wagner', 'Becker', 'Hoffmann', 'Schulz',
   'Koch', 'Bauer', 'Richter', 'Klein', 'Wolf',
-  'Schröder', 'Neumann', 'Schwarz', 'Zimmermann', 'Braun',
+  'SchrÃ¶der', 'Neumann', 'Schwarz', 'Zimmermann', 'Braun',
 ];
 
-const CITIES = ['Frankfurt', 'Gießen', 'Marburg', 'Wetzlar', 'Laubach'];
+const CITIES = ['Frankfurt', 'GieÃŸen', 'Marburg', 'Wetzlar', 'Laubach'];
 const STREETS = [
-  'Hauptstraße 12', 'Gartenweg 5', 'Birkenallee 23',
-  'Rosenweg 8', 'Kastanienweg 3', 'Lindenstraße 17',
+  'HauptstraÃŸe 12', 'Gartenweg 5', 'Birkenallee 23',
+  'Rosenweg 8', 'Kastanienweg 3', 'LindenstraÃŸe 17',
 ];
 const POSTAL_CODES = ['35390', '35392', '35037', '35578', '35321'];
 
@@ -116,9 +116,9 @@ export function generateRandomCertificateData(): RlpCertificateData {
 
     school: {
       name: 'Lernwerkstatt-Pflege GmbH',
-      street: 'Liebigstraße 14-16',
+      street: 'LiebigstraÃŸe 14-16',
       postalCode: '35390',
-      city: 'Giessen',
+      city: 'Gießen',
       principalName: 'Stephan Ronneburg',
       principalTitle: 'Schulleitung',
     },
@@ -135,3 +135,4 @@ export function generateRandomCertificateData(): RlpCertificateData {
     practiceAbsenceHours: Math.floor(Math.random() * 16),
   };
 }
+

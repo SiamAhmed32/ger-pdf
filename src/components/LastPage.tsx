@@ -518,14 +518,16 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
                 color: "#000",
                 textAlign: "left",
                 lineHeight: "1.4",
-                fontSize: "13px",
+                fontSize: "15px",
               }}
             >
-              Im Rahmen der Benehmenregelung gemäß § 6 Abs. 3 der Ausbildungs-
-              und Prüfungsverordnung für die Pflegeberufe (PflAPrV) kann die
-              oben ermittelte Note für die praktische Ausbildung anhand der im
-              Beurteilungszeitraum während der praktischen Ausbildung insgesamt
-              festgestellten praktischen Leistungen maximal eine Notenstufe nach
+              Im Rahmen der Benehmenregelung gemäß § 6 Abs. 3 der
+              <br /> Ausbildungs-
+              und Prüfungsverordnung für die Pflegeberufe (PflAPrV)
+              <br /> kann die
+              oben ermittelte Note für die praktische Ausbildung anhand <br /> der im
+              Beurteilungszeitraum während der praktischen Ausbildung <br /> insgesamt
+              festgestellten praktischen Leistungen maximal eine <br /> Notenstufe nach
               oben oder unten angepasst werden.
             </div>
             <div
@@ -547,11 +549,13 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
                 color: "#000",
                 textAlign: "left",
                 lineHeight: "1.4",
-                fontSize: "13px",
+                fontSize: "15px",
               }}
             >
               Die oben ermittelte Gesamtnote für die praktische Ausbildung soll
+              <br />
               um eine Notenstufe angehoben / herabgesetzt werden. Somit ergibt
+              <br />
               sich folgende Gesamtnote für die praktische Ausbildung:
             </div>
             <div
@@ -705,10 +709,10 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             <div
               style={{
                 marginBottom: "2px",
-                fontSize: "15px",
+                fontSize: "17px",
                 fontWeight: "bold",
                 borderBottom: "1px solid #333",
-                paddingBottom: "4px",
+                // paddingBottom: "4px",
                 textAlign: "left",
                 ...addFont,
               }}
@@ -717,7 +721,7 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             </div>
             <div
               style={{
-                fontSize: "8px",
+                fontSize: "10px",
                 color: "#000",
                 textAlign: "left",
                 ...addFont,
@@ -727,7 +731,7 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             </div>
             <div
               style={{
-                fontSize: "8px",
+                fontSize: "10px",
                 color: "#000",
                 textAlign: "left",
                 ...addFont,
@@ -768,25 +772,25 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             </div>
             <div
               style={{
-                fontSize: "15px",
+                fontSize: "17px",
                 fontWeight: "bold",
                 textAlign: "left",
-                marginBottom: "2px",
+                // marginBottom: "2px",
                 ...addFont,
               }}
             >
               {principalName}
             </div>
+              <div
+                style={{
+                  borderBottom: "1px solid #333",
+                  // height: "10px",
+                  // marginBottom: "3px",
+                }}
+              />
             <div
               style={{
-                borderBottom: "1px solid #333",
-                height: "10px",
-                marginBottom: "6px",
-              }}
-            />
-            <div
-              style={{
-                fontSize: "8px",
+                fontSize: "10px",
                 color: "#000",
                 textAlign: "left",
                 ...addFont,
@@ -808,10 +812,10 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             <div
               style={{
                 marginBottom: "2px",
-                fontSize: "15px",
+                fontSize: "17px",
                 fontWeight: "bold",
                 borderBottom: "1px solid #333",
-                paddingBottom: "4px",
+                // paddingBottom: "4px",
                 textAlign: "left",
                 ...addFont,
               }}
@@ -820,7 +824,7 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             </div>
             <div
               style={{
-                fontSize: "8px",
+                fontSize: "10px",
                 color: "#000",
                 textAlign: "left",
                 ...addFont,
@@ -840,7 +844,7 @@ const LastPage: React.FC<LastPageProps> = ({ data }) => {
             />
             <div
               style={{
-                fontSize: "8px",
+                fontSize: "10px",
                 color: "#000",
                 textAlign: "left",
                 ...addFont,
