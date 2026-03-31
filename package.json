@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^123.0.1",
     "date-fns": "^4.1.0",
     "playwright": "^1.58.2",
     "playwright-core": "^1.58.2",
@@ -20,11 +19,12 @@
     "react-to-print": "^3.3.0"
   },
   "devDependencies": {
-    "@vercel/node": "^5.3.24",
     "@eslint/js": "^9.39.4",
+    "@sparticuz/chromium": "^123.0.1",
     "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vercel/node": "^5.3.24",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",

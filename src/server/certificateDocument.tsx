@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import CertificateRenderer from '../components/CertificateRenderer';
 import type { RlpCertificateData } from '../lib/types';
